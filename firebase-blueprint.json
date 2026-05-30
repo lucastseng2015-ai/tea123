@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Tea product entry representing a menu item",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique product custom key"
+        },
+        "name": {
+          "type": "string",
+          "description": "Taiwanese/Chinese name of the tea item"
+        },
+        "description": {
+          "type": "string",
+          "description": "Tagline or descriptive text"
+        },
+        "priceM": {
+          "type": "number",
+          "description": "Price for medium size"
+        },
+        "priceL": {
+          "type": "number",
+          "description": "Price for large size, or null if M-only"
+        },
+        "iceConstraint": {
+          "type": "string",
+          "description": "Ice constraint statement (e.g. 僅供少冰)"
+        },
+        "available": {
+          "type": "boolean",
+          "description": "Is this product in-stock and active"
+        },
+        "category": {
+          "type": "string",
+          "description": "Menu section grouping"
+        },
+        "badge": {
+          "type": "string",
+          "description": "Custom visual badge metadata"
+        }
+      },
+      "required": ["id", "name", "description", "priceM", "available", "category"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Tea order document representing a customer purchase",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the order"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Customer name for the order"
+        },
+        "customerPhone": {
+          "type": "string",
+          "description": "Customer contact phone number"
+        },
+        "items": {
+          "type": "array",
+          "description": "Array of ordered tea items"
+        },
+        "totalPrice": {
+          "type": "number",
+          "description": "Total checkout price in TWD"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "preparing", "completed", "cancelled"],
+          "description": "Current status of the order"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional custom order note"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Order placement timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last order status update timestamp"
+        }
+      },
+      "required": ["id", "customerName", "customerPhone", "items", "totalPrice", "status", "notes", "createdAt", "updatedAt"]
+    },
+    "AdminConfig": {
+      "title": "AdminConfig",
+      "description": "Configuration document for administrator credentials",
+      "type": "object",
+      "properties": {
+        "passwordHash": {
+          "type": "string",
+          "description": "A secure representation of the manager password"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Password set-up date"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Password last updated date"
+        }
+      },
+      "required": ["passwordHash", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of available tea-shop menu products"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection storing all tea orders"
+    },
+    "/system_config/{configId}": {
+      "schema": "AdminConfig",
+      "description": "Collection storing administrative parameters (e.g. password)"
+    }
+  }
+}
