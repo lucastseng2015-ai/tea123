@@ -1,0 +1,6 @@
+{
+  "name": "茶飲點單系統",
+  "description": "具有前台點單與後台管理功能的茶飲點單系統，資料儲存於 Firebase 資料庫中，支援管理者密碼設定與驗證。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
